@@ -37,6 +37,31 @@ func init() {
 	Server = &APIServer{}
 }
 
+// GetPort returns the port number for the API server.
+func (s *APIServer) GetPort() string {
+	return s.port
+}
+
+// GetCertFolder returns the path to the TLS certificates.
+func (s *APIServer) GetCertFolder() string {
+	return s.certFolder
+}
+
+// GetServer returns the HTTP/2 server object.
+func (s *APIServer) GetServer() *http.Server {
+	return s.server
+}
+
+// GetRouter returns the router object.
+func (s *APIServer) GetRouter() *mux.Router {
+	return s.router
+}
+
+// GetAuthorizedRemotes returns the list of authorized remotes (IP Addresses).
+func (s *APIServer) GetAuthorizedRemotes() []string {
+	return s.authorizedRemotes
+}
+
 // AddRoute adds a route to the API server.
 // Example:
 //
