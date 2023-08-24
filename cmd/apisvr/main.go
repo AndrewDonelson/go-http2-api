@@ -1,18 +1,29 @@
 package main
 
 import (
-	"github.com/AndrewDonelson/go-http2-api/pkg/api"
+	"fmt"
+	"net/http"
+
+	api "github.com/AndrewDonelson/go-http2-api/pkg"
 )
 
-func main() {
-	api.Server.Initialize(":8080", "./certs")
+func handlerTestingHello(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Hello World!")
+}
 
+func main() {
+	api.Server.Initialize(":8080", "../certs/")
+
+	// Add routes here - https://localhost:8080/v1/testing/hello
 	api.Server.AddRoute(&api.APIRoute{
 		Version:  1,
-		SubRoute: "subroute",
-		Name:     "test",
+		SubRoute: "testing",
+		Name:     "hello",
 		Method:   "GET",
-		Handler:  api.TestHandler,
+		Handler:  handlerTestingHello,
 	})
 
+	// Start the server
+	api.Server.Start()
 }

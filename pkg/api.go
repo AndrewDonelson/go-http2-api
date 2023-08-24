@@ -11,11 +11,11 @@ import (
 
 // APIRoute is a struct to represent an API route.
 type APIRoute struct {
-	version  uint8                                    // 0 = v1, 1 = v2, etc.
-	subRoute string                                   // e.g. "users", "posts","products", etc.
-	name     string                                   // e.g. "get", "create", "update", "delete", etc.
-	method   string                                   // e.g. "GET", "POST", "PUT", "DELETE", etc.
-	handler  func(http.ResponseWriter, *http.Request) // e.g. GetUsersHandler, CreateUsersHandler, etc.
+	Version  uint8                                    // 0 = v1, 1 = v2, etc.
+	SubRoute string                                   // e.g. "users", "posts","products", etc.
+	Name     string                                   // e.g. "get", "create", "update", "delete", etc.
+	Method   string                                   // e.g. "GET", "POST", "PUT", "DELETE", etc.
+	Handler  func(http.ResponseWriter, *http.Request) // e.g. GetUsersHandler, CreateUsersHandler, etc.
 }
 
 // APIServer is a struct to represent the API server.
@@ -48,7 +48,7 @@ func init() {
 //		handler:  GetUsersHandler,
 //	})
 func (s *APIServer) AddRoute(route *APIRoute) {
-	s.router.HandleFunc(fmt.Sprintf("/v%d/%s/%s", route.version, route.subRoute, route.name), route.handler).Methods(strings.ToUpper(route.method))
+	s.router.HandleFunc(fmt.Sprintf("/v%d/%s/%s", route.Version, route.SubRoute, route.Name), route.Handler).Methods(strings.ToUpper(route.Method))
 }
 
 // AddAuthorizedRemote adds an authorized remote to the API server.
